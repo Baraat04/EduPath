@@ -41,13 +41,15 @@ function getCityFromLocation(location: string): string {
   return 'Other'
 }
 
+const DEFAULT_TUITION_RANGE = [0, 30000]
+
 export default function UniversitiesPage() {
   const router = useRouter()
   const { add, remove, has } = useWishlist()
   const { lang, t } = useLang()
   const [universities, setUniversities] = useState<UniversityData[]>([])
   const [searchQuery, setSearchQuery] = useState("")
-  const [tuitionRange, setTuitionRange] = useState([1000, 5000])
+  const [tuitionRange, setTuitionRange] = useState(DEFAULT_TUITION_RANGE)
   const [selectedCities, setSelectedCities] = useState<string[]>([])
   const [topRatedOnly, setTopRatedOnly] = useState(false)
   const [sortBy, setSortBy] = useState("popular")
@@ -89,12 +91,18 @@ export default function UniversitiesPage() {
         if (!selectedCities.includes(city)) return false
       }
       // Tuition filter
-      const price = parseTuitionMin(trans.tuition)
+        const price = parseTuitionMin(trans.tuition)
 
-      // Only filter if tuition exists
-      if (price > 0 && (price < tuitionRange[0] || price > tuitionRange[1])) {
-        return false
-      }
+        const tuitionFilterChanged =
+          tuitionRange[0] !== DEFAULT_TUITION_RANGE[0] ||
+          tuitionRange[1] !== DEFAULT_TUITION_RANGE[1]
+
+        // Фильтруем только если пользователь реально двигал slider
+        if (tuitionFilterChanged && price > 0) {
+          if (price < tuitionRange[0] || price > tuitionRange[1]) {
+            return false
+          }
+        }
       // Top rated filter
       if (topRatedOnly && uni.rating < 4.5) {
         return false
@@ -125,14 +133,20 @@ export default function UniversitiesPage() {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
   }
 
-  const clearFilters = () => {
-    setSearchQuery("")
-    setTuitionRange([1000, 5000])
-    setSelectedCities([])
-    setTopRatedOnly(false)
-  }
+const clearFilters = () => {
+  setSearchQuery("")
+  setTuitionRange(DEFAULT_TUITION_RANGE)
+  setSelectedCities([])
+  setTopRatedOnly(false)
+}
 
-  const hasActiveFilters = !!(searchQuery || selectedCities.length > 0 || topRatedOnly || tuitionRange[0] !== 1000 || tuitionRange[1] !== 5000)
+  const hasActiveFilters = !!(
+  searchQuery ||
+  selectedCities.length > 0 ||
+  topRatedOnly ||
+  tuitionRange[0] !== DEFAULT_TUITION_RANGE[0] ||
+  tuitionRange[1] !== DEFAULT_TUITION_RANGE[1]
+)
 
   return (
     <div className="min-h-screen bg-background">
@@ -440,7 +454,7 @@ function FilterContent({
           {t('unilist.location')}
         </label>
         <div className="space-y-2">
-          {["Almaty", "Astana", "Shymkent"].map(city => (
+          {["Almaty", "Astana"].map(city => (
             <Label key={city} className="flex items-center gap-3 cursor-pointer group">
               <Checkbox 
                 checked={selectedCities.includes(city)}
@@ -462,9 +476,9 @@ function FilterContent({
         <Slider
           value={tuitionRange}
           onValueChange={setTuitionRange}
-          min={1000}
-          max={5000}
-          step={200}
+          min={0}
+          max={30000}
+          step={100}
           className="w-full"
         />
         <div className="flex justify-between mt-2 text-xs font-medium text-muted-foreground">

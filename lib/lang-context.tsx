@@ -123,7 +123,7 @@ const translations: Record<Lang, Record<string, string>> = {
     // About page
     "about.badge": "About Us",
     "about.title": "Empowering Students to Achieve Their Dreams",
-    "about.subtitle": "EduPath Kazakhstan is dedicated to helping aspiring students navigate their journey to world-class education.",
+    "about.subtitle": "EduPath Kazakhstan helps students secure admission to top universities in Kazakhstan through the country's only full-service university enrollment support platform",
     "about.story.title": "Our Story",
     "about.mission.title": "Our Mission",
     "about.vision.title": "Our Vision",
@@ -361,7 +361,7 @@ const translations: Record<Lang, Record<string, string>> = {
     // About
     "about.badge": "О нас",
     "about.title": "Помогаем студентам достичь мечты",
-    "about.subtitle": "EduPath Kazakhstan помогает студентам пройти путь к качественному образованию в Казахстане.",
+    "about.subtitle": "EduPath Kazakhstan — единственная образовательная платформа в Казахстане, предоставляющая полное сопровождение поступления в казахстанские вузы от выбора университета до зачисления.",
     "about.story.title": "Наша история",
     "about.mission.title": "Наша миссия",
     "about.vision.title": "Наше видение",
@@ -599,7 +599,7 @@ const translations: Record<Lang, Record<string, string>> = {
     // About
     "about.badge": "Біз туралы",
     "about.title": "Студенттерге армандарына жетуге көмектесеміз",
-    "about.subtitle": "EduPath Kazakhstan студенттерге Қазақстандағы үздік білімге жету жолын бастан-аяқ сүйемелдейді.",
+    "about.subtitle": "EduPath Kazakhstan студенттерге Қазақстанның үздік жоғары оқу орындарына сенімді түрде түсуге көмектесетін және толық қабылдау сүйемелдеуін ұсынатын еліміздегі бірегей компания",
     "about.story.title": "Біздің тарих",
     "about.mission.title": "Миссиямыз",
     "about.vision.title": "Болашақ жоспарымыз",
